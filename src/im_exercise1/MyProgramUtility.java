@@ -46,7 +46,8 @@ public class MyProgramUtility implements MusicDataManager {
                 8. Search for a Song by Title
                 9. Display Songs Based on Duration
                 10. Display Songs without Explicit
-                11. Exit Program
+                11. Display Songs with Explicit
+                12. Exit Program
                 ===============================================================
                 Your Choice: """);
 
@@ -117,6 +118,9 @@ public class MyProgramUtility implements MusicDataManager {
                     // TODO:
                 }
                 case 11 -> {
+                    // TODO:
+                }
+                case 12 -> {
                     System.out.println("Exiting program...");
                     System.exit(0);
                 }
@@ -346,5 +350,11 @@ public class MyProgramUtility implements MusicDataManager {
     public void displaySongsWithoutExplicit() throws IllegalArgumentException {
         // TODO:
     }
+
+    @Override
+    public void displaySongsWithExplicit() throws IllegalArgumentException {
+        // TODO:
+    }
+
 
 }

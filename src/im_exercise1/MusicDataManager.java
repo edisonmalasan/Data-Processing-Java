@@ -28,4 +28,5 @@ public interface MusicDataManager {
     void displaySongsByDuration(String durationCategory) throws IllegalArgumentException;
 
     void displaySongsWithoutExplicit() throws IllegalArgumentException;
+    void displaySongsWithExplicit() throws IllegalArgumentException;
 }
