@@ -431,12 +431,51 @@ public class MyProgramUtility implements MusicDataManager {
 
     @Override
     public void displaySongsWithoutExplicit() throws IllegalArgumentException {
-        // TODO:
+        if (musicList.isEmpty()) {
+            System.out.println("There are no songs in the list");
+        } else {
+            List<Music> filteredSongs = musicList.stream()
+                    .filter(music -> !music.isExplicit() )
+                    .collect(Collectors.toList());
+
+            if (filteredSongs.isEmpty()) {
+                System.out.println("No songs found");
+            } else {
+                System.out.println("\n============================================================================================================================================================================================================================================================================================");
+                System.out.println("|                                           SONG TITLE                                                    |                                                 ARTIST                                                 |             GENRE              |              Explicit                 |");
+                System.out.println("=============================================================================================================================================================================================================================================================================================");
+                filteredSongs.forEach(music -> {
+                    String songTitle = music.getSongTitle();
+                    String artist = music.getSongArtist();
+                    String songGenre = music.getSongGenre();
+                    boolean songExplicit = music.isExplicit();
+                    System.out.printf("| %-103s | %-102s | %-40s | %-26b | %n", songTitle, artist, songGenre, songExplicit);
+                });
+
+                System.out.println("============================================================================================================================================================================================================================================================================================");
+            }
+        }
     }
 
     @Override
     public void displaySongsWithExplicit() throws IllegalArgumentException {
-        // TODO:
+        if (musicList.isEmpty()) {
+            System.out.println("There are no songs in the list");
+            } else {
+            System.out.println("\n============================================================================================================================================================================================================================================================================================");
+            System.out.println("|                                           SONG TITLE                                                    |                                                 ARTIST                                                 |             GENRE              |              Explicit                 |");
+            System.out.println("=============================================================================================================================================================================================================================================================================================");
+
+            musicList.forEach(music -> {
+                String songTitle = music.getSongTitle();
+                String artist = music.getSongArtist();
+                String songGenre = music.getSongGenre();
+                boolean songExplicit = music.isExplicit();
+                System.out.printf("| %-103s | %-102s | %-40s | %-26b | %n", songTitle, artist, songGenre, songExplicit);
+            });
+            System.out.println("=============================================================================================================================================================================================================================================================================================");
+           }
+        }
     }
 
 
