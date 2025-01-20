@@ -106,13 +106,15 @@ public class MyProgramUtility implements MusicDataManager {
                     // TODO:
                 }
                 case 7 -> {
-                    // TODO:
+                    myProgramUtility.displayTopSongsByPopularity();
                 }
                 case 8 -> {
                     // TODO:
                 }
                 case 9 -> {
-                    // TODO:
+                    System.out.println("Enter duration category (short, medium, long): ");
+                    String durationCategory = bufferedReader.readLine().trim().toLowerCase();
+                    myProgramUtility.displaySongsByDuration(durationCategory);
                 }
                 case 10 -> {
                     // TODO:
@@ -333,8 +335,39 @@ public class MyProgramUtility implements MusicDataManager {
     @Override
     public void displayTopSongsByPopularity() throws IllegalArgumentException {
         // TODO:
-    }
+        if (musicList.isEmpty()) {
+            System.out.println("There are no songs in the list.");
+        } else {
+            List<Music> topSongs = musicList.stream()
+                    .sorted((m1, m2) -> {
+                        try {
+                            return Integer.parseInt(m2.getSongPopularity()) - Integer.parseInt(m1.getSongPopularity());
+                        } catch (NumberFormatException e) {
+                            return 0; // Handle any parsing errors
+                        }
+                    })
+                    .limit(10)
+                    .collect(Collectors.toList());
 
+            if (topSongs.isEmpty()) {
+                System.out.println("No songs found for popularity ranking.");
+            } else {
+                System.out.println("\n====================================================================================================================================================================================================================");
+                System.out.println("|                                           SONG TITLE                                                    |                                                 ARTIST                                                 |            POPULARITY        |");
+                System.out.println("====================================================================================================================================================================================================================");
+
+                topSongs.forEach(music -> {
+                    String songTitle = music.getSongTitle();
+                    String artist = music.getSongArtist();
+                    String popularity = music.getSongPopularity();
+
+                    System.out.printf("| %-103s | %-102s | %-26s |%n", songTitle, artist, popularity);
+                });
+
+                System.out.println("====================================================================================================================================================================================================================");
+            }
+        }
+    }
     @Override
     public List<Music> searchSongByTitle(String title) throws IllegalArgumentException {
         // TODO:
@@ -344,6 +377,54 @@ public class MyProgramUtility implements MusicDataManager {
     @Override
     public void displaySongsByDuration(String durationCategory) throws IllegalArgumentException {
         // TODO:
+
+
+        if (musicList.isEmpty()) {
+            System.out.println("There are no songs in the list");
+        } else {
+            List<Music> filteredSongs;
+
+            switch (durationCategory.toLowerCase()) {
+                case "short":
+                    filteredSongs = musicList.stream()
+                            .filter(music -> music.getSongDuration() < 180000)  // Less than 3 minutes
+                            .collect(Collectors.toList());
+                    break;
+                case "medium":
+                    filteredSongs = musicList.stream()
+                            .filter(music -> music.getSongDuration() >= 180000 && music.getSongDuration() <= 300000)  // 3 to 5 minutes
+                            .collect(Collectors.toList());
+                    break;
+                case "long":
+                    filteredSongs = musicList.stream()
+                            .filter(music -> music.getSongDuration() > 300000)  // More than 5 minutes
+                            .collect(Collectors.toList());
+                    break;
+                default:
+                    System.out.println("Invalid duration category. Use 'short', 'medium', or 'long'.");
+                    return;
+            }
+
+            if (filteredSongs.isEmpty()) {
+                System.out.println("No songs found for the selected duration category: " + durationCategory);
+            } else {
+                System.out.println("\n==================================================================");
+                System.out.println("|        SONG TITLE         |       ARTIST       |    DURATION    |");
+                System.out.println("==================================================================");
+
+                filteredSongs.forEach(music -> {
+                    int durationMs = music.getSongDuration();
+                    int minutes = durationMs / 60000;
+                    int seconds = (durationMs % 60000) / 1000;
+                    String formattedDuration = String.format("%d:%02d", minutes, seconds);
+
+                    System.out.printf("| %-25s | %-18s | %-14s |%n",
+                            music.getSongTitle(), music.getSongArtist(), formattedDuration);
+                });
+
+                System.out.println("==================================================================");
+            }
+        }
     }
 
     @Override
