@@ -334,11 +334,16 @@ public class MyProgramUtility implements MusicDataManager {
 
     @Override
     public void displayTopSongsByPopularity() throws IllegalArgumentException {
-        // TODO:
         if (musicList.isEmpty()) {
             System.out.println("There are no songs in the list.");
         } else {
-            List<Music> topSongs = musicList.stream()
+            List<Music> uniqueSongs = musicList.stream()
+                    .collect(Collectors.collectingAndThen(
+                            Collectors.toCollection(() -> new TreeSet<>(
+                                    Comparator.comparing(m -> (m.getSongTitle() + m.getSongArtist()).toLowerCase())
+                            )), ArrayList::new));
+
+            List<Music> topSongs = uniqueSongs.stream()
                     .sorted((m1, m2) -> {
                         try {
                             return Integer.parseInt(m2.getSongPopularity()) - Integer.parseInt(m1.getSongPopularity());
@@ -358,10 +363,10 @@ public class MyProgramUtility implements MusicDataManager {
 
                 topSongs.forEach(music -> {
                     String songTitle = music.getSongTitle();
-                    String artist = music.getSongArtist();
-                    String popularity = music.getSongPopularity();
+                    String songArtist = music.getSongArtist();
+                    String songPopularity = music.getSongPopularity();
 
-                    System.out.printf("| %-103s | %-102s | %-26s |%n", songTitle, artist, popularity);
+                    System.out.printf("| %-103s | %-102s | %-26s |%n", songTitle, songArtist, songPopularity);
                 });
 
                 System.out.println("====================================================================================================================================================================================================================");
@@ -376,9 +381,6 @@ public class MyProgramUtility implements MusicDataManager {
 
     @Override
     public void displaySongsByDuration(String durationCategory) throws IllegalArgumentException {
-        // TODO:
-
-
         if (musicList.isEmpty()) {
             System.out.println("There are no songs in the list");
         } else {
