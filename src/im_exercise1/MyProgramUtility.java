@@ -103,13 +103,15 @@ public class MyProgramUtility implements MusicDataManager {
                     myProgramUtility.getTotalSongsPerGenre();
                 }
                 case 6 -> {
-                    // TODO:
+                    myProgramUtility.getAverageTempoPerGenre();
                 }
                 case 7 -> {
                     myProgramUtility.displayTopSongsByPopularity();
                 }
                 case 8 -> {
-                    // TODO:
+                    System.out.print("Enter the title of the song you want to search for: ");
+                    String title = bufferedReader.readLine().trim();
+                    myProgramUtility.searchSongByTitle(title);
                 }
                 case 9 -> {
                     System.out.println("Enter duration category (short, medium, long): ");
@@ -117,10 +119,10 @@ public class MyProgramUtility implements MusicDataManager {
                     myProgramUtility.displaySongsByDuration(durationCategory);
                 }
                 case 10 -> {
-                    // TODO:
+                    myProgramUtility.displaySongsWithoutExplicit();
                 }
                 case 11 -> {
-                    // TODO:
+                    myProgramUtility.displaySongsWithExplicit();
                 }
                 case 12 -> {
                     System.out.println("Exiting program...");
@@ -328,8 +330,22 @@ public class MyProgramUtility implements MusicDataManager {
 
     @Override
     public Map<String, Double> getAverageTempoPerGenre() throws IllegalArgumentException {
-        // TODO:
-        return Map.of();
+        Map<String, Double> averageTempoMap = musicList.stream()
+                .collect(Collectors.groupingBy(Music::getSongGenre,
+                        Collectors.averagingDouble(Music::getSongTempo)));
+        if (averageTempoMap.isEmpty()) {
+            System.out.println("There are no songs to display");
+        } else {
+            System.out.println("\n============================================================================================================");
+            System.out.println("|                                   GENRE                              |             AVERAGE TEMPO         |");
+            System.out.println("============================================================================================================");
+
+            averageTempoMap.forEach((genre, avgTempo) ->
+                    System.out.printf("| %-69s | %-32.2f |%n", genre, avgTempo)
+            );
+            System.out.println("============================================================================================================");
+        }
+        return averageTempoMap;
     }
 
     @Override
@@ -375,9 +391,41 @@ public class MyProgramUtility implements MusicDataManager {
     }
     @Override
     public List<Music> searchSongByTitle(String title) throws IllegalArgumentException {
-        // TODO:
-        return List.of();
+        List<Music> keySong = musicList.stream()
+                .filter(music -> music.getSongTitle().equalsIgnoreCase(title))
+                .collect(Collectors.toList());
+
+        if (keySong.isEmpty()) {
+            System.out.println("No songs found with the title: " + title);
+        } else {
+            System.out.println("\nSongs found with the title '" + title + "':");
+            System.out.println("====================================================================================================================================================================================");
+            System.out.println("|           SONG TITLE                 |                   ARTIST                      |   DURATION   |   YEAR   |   POPULARITY   |   KEY   |   TEMPO   |   GENRE   |   EXPLICIT   |");
+            System.out.println("====================================================================================================================================================================================");
+
+            keySong.forEach(music -> {
+                String songTitle = music.getSongTitle();
+                String artist = music.getSongArtist();
+                int durationMs = music.getSongDuration();
+                int minutes = durationMs / 60000;
+                int seconds = (durationMs % 60000) / 1000;
+                String formattedDuration = String.format("%d:%02d", minutes, seconds);
+                int year = music.getYearReleased();
+                String popularity = music.getSongPopularity();
+                String key = music.getSongKey();
+                double tempo = music.getSongTempo();
+                String genre = music.getSongGenre();
+                boolean isExplicit = music.isExplicit();
+
+                System.out.printf("| %-36s | %-30s | %-14s | %-8d | %-12s | %-8s | %-8.2f | %-12s | %-12b |%n",
+                        songTitle, artist, formattedDuration, year, popularity, key, tempo, genre, isExplicit);
+            });
+
+            System.out.println("====================================================================================================================================================================================");
+        }
+        return keySong;
     }
+
 
     @Override
     public void displaySongsByDuration(String durationCategory) throws IllegalArgumentException {
@@ -478,5 +526,3 @@ public class MyProgramUtility implements MusicDataManager {
         }
     }
 
-
-}
