@@ -1,8 +1,5 @@
 package im_exercise1;
 
-import java.time.format.DateTimeFormatter;
-import java.util.Objects;
-
 public class Music implements Comparable<Music>{
     private String songArtist;
     private String songTitle;
@@ -24,6 +21,9 @@ public class Music implements Comparable<Music>{
         this.songKey = songKey;
         this.songTempo = songTempo;
         this.songGenre = songGenre;
+    }
+
+    public Music(String detail, String detail1, String detail2, boolean explicit, int yearReleased, double v) {
     }
 
     public String getSongArtist() {
