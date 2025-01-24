@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="Team_8-CS221-Act-0:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/Team_8_CS221_Act_0_jar</output-path>
+  <artifact type="jar" name="Data-Processing-Java:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Data_Processing_Java_jar</output-path>
     <root id="archive" name="Data-Processing-Java.jar">
       <element id="module-output" name="Data-Processing-Java" />
     </root>
