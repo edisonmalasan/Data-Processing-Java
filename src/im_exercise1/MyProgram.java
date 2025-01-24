@@ -12,7 +12,7 @@ public class MyProgram {
 
     private static final List<Music> musicList = new ArrayList<>();
     private static final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-    private static final String filename = "C:/Users/ediso/Desktop/Data-Processing-Java/Team-8-DataSet.csv";
+    private static final String filename = "Team-8-DataSet.csv";
 
     public MyProgram() throws IOException {
         readSong();
