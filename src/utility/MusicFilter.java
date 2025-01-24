@@ -1,6 +1,6 @@
 package utility;
 
-import im_exercise1.Music;
+import model.Music;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -154,57 +154,6 @@ public class MusicFilter {
                 System.out.printf("| %-50s | %-51s | %-40s | %-26b | %n", songTitle, artist, songGenre, songExplicit);
             });
             System.out.println("====================================================================================================================================================================================");
-        }
-    }
-
-    public static List<Music> displaySongsByDuration(List<Music> musicList, String durationCategory) {
-        if (musicList.isEmpty()) {
-            System.out.println("There are no songs in the list");
-            return List.of();
-        } else {
-            List<Music> filteredSongs;
-
-            switch (durationCategory.toLowerCase()) {
-                case "short":
-                    filteredSongs = musicList.stream()
-                            .filter(music -> music.getSongDuration() < 180000)
-                            .collect(Collectors.toList());
-                    break;
-                case "medium":
-                    filteredSongs = musicList.stream()
-                            .filter(music -> music.getSongDuration() >= 180000 && music.getSongDuration() <= 300000)
-                            .collect(Collectors.toList());
-                    break;
-                case "long":
-                    filteredSongs = musicList.stream()
-                            .filter(music -> music.getSongDuration() > 300000)
-                            .collect(Collectors.toList());
-                    break;
-                default:
-                    System.out.println("Invalid duration category. Use 'short', 'medium', or 'long'.");
-                    return List.of();
-            }
-
-            if (filteredSongs.isEmpty()) {
-                System.out.println("No songs found for the selected duration category: " + durationCategory);
-            } else {
-                System.out.println("\n==================================================================");
-                System.out.println("|        SONG TITLE         |       ARTIST       |    DURATION    |");
-                System.out.println("==================================================================");
-
-                filteredSongs.forEach(music -> {
-                    int durationMs = music.getSongDuration();
-                    int minutes = durationMs / 60000;
-                    int seconds = (durationMs % 60000) / 1000;
-                    String formattedDuration = String.format("%d:%02d", minutes, seconds);
-
-                    System.out.printf("| %-25s | %-18s | %-14s |%n",
-                            music.getSongTitle(), music.getSongArtist(), formattedDuration);
-                });
-
-                System.out.println("==================================================================");
-            }
-            return filteredSongs;
         }
     }
 }

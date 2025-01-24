@@ -1,5 +1,6 @@
-package im_exercise1;
+package app;
 
+import model.Music;
 import utility.MusicFilter;
 import utility.MusicProcess;
 import utility.MusicSearch;

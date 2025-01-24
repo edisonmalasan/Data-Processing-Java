@@ -1,4 +1,4 @@
-package im_exercise1;
+package model;
 
 public class Music implements Comparable<Music>{
     private String songArtist;

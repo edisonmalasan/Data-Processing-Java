@@ -1,6 +1,6 @@
 package utility;
 
-import im_exercise1.Music;
+import model.Music;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

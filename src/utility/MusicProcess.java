@@ -1,6 +1,6 @@
 package utility;
 
-import im_exercise1.Music;
+import model.Music;
 
 import java.util.*;
 import java.util.stream.Collectors;
