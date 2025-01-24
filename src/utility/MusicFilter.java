@@ -118,7 +118,7 @@ public class MusicFilter {
         } else {
             System.out.println("\nSongs without Explicit Content:");
             System.out.println("====================================================================================================================================================================================");
-            System.out.println("|           SONG TITLE                 |               ARTIST                    |   DURATION   |   YEAR   |   POPULARITY   |   KEY   |   TEMPO   |   GENRE   |   EXPLICIT   |");
+            System.out.println("|                     SONG TITLE                     |                      ARTIST                         |                    GENRE                |            EXPLICIT        |");
             System.out.println("====================================================================================================================================================================================");
             nonExplicitSongs.forEach(music -> {
                 String songTitle = music.getSongTitle();
@@ -126,7 +126,7 @@ public class MusicFilter {
                 String songGenre = music.getSongGenre();
                 boolean songExplicit = music.isExplicit();
 
-                System.out.printf("| %-103s | %-102s | %-40s | %-26b | %n", songTitle, artist, songGenre, songExplicit);
+                System.out.printf("| %-50s | %-51s | %-40s | %-26b | %n", songTitle, artist, songGenre, songExplicit);
             });
             System.out.println("====================================================================================================================================================================================");
         }
@@ -151,7 +151,7 @@ public class MusicFilter {
                 String songGenre = music.getSongGenre();
                 boolean songExplicit = music.isExplicit();
 
-                System.out.printf("| %-103s | %-102s | %-40s | %-26b | %n", songTitle, artist, songGenre, songExplicit);
+                System.out.printf("| %-53s | %-52s | %-40s | %-26b | %n", songTitle, artist, songGenre, songExplicit);
             });
             System.out.println("====================================================================================================================================================================================");
         }
